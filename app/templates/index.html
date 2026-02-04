@@ -1,0 +1,511 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome | TO-DO App{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Organize Your Life, One Task at a Time</h1>
+        <p>A simple yet powerful task management application to help you stay productive and focused on what matters most.</p>
+        <div class="hero-buttons">
+            {% if 'user' in session %}
+                <a href="{{ url_for('tasks.view_tasks') }}" class="btn btn-primary">Go to Dashboard</a>
+                <a href="{{ url_for('auth.logout') }}" class="btn btn-secondary">Logout</a>
+            {% else %}
+                <a href="{{ url_for('auth.login') }}" class="btn btn-primary">Get Started</a>
+                <a href="#features" class="btn btn-secondary">Learn More</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="hero-image">
+        <div class="hero-illustration">
+            <div class="task-card-illustration">
+                <div class="illustration-header">
+                    <div class="illustration-dot red"></div>
+                    <div class="illustration-dot yellow"></div>
+                    <div class="illustration-dot green"></div>
+                </div>
+                <div class="illustration-content">
+                    <div class="illustration-task done">
+                        <div class="task-check">✓</div>
+                        <span>Complete project proposal</span>
+                    </div>
+                    <div class="illustration-task working">
+                        <div class="task-check"></div>
+                        <span>Team meeting at 3 PM</span>
+                    </div>
+                    <div class="illustration-task pending">
+                        <div class="task-check"></div>
+                        <span>Review quarterly reports</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="features">
+    <h2 class="section-title">Why Choose Our TO-DO App?</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            <h3>Simple & Intuitive</h3>
+            <p>Clean interface that anyone can use without any learning curve.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+            </div>
+            <h3>Track Progress</h3>
+            <p>Monitor your tasks with status labels: Pending, Working, Done.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+            </div>
+            <h3>Stay Productive</h3>
+            <p>Focus on what's important and get more done in less time.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+            </div>
+            <h3>Secure Access</h3>
+            <p>Your data is protected with secure authentication system.</p>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="how-it-works">
+    <h2 class="section-title">How It Works</h2>
+    <div class="steps-container">
+        <div class="step">
+            <div class="step-number">1</div>
+            <h3>Sign In</h3>
+            <p>Use the credentials to access your personalized dashboard.</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <h3>Add Tasks</h3>
+            <p>Create new tasks with a simple form. Add descriptions and set priorities.</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <h3>Manage & Complete</h3>
+            <p>Update status, mark as done, or remove completed tasks.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta">
+    <div class="cta-content">
+        <h2>Ready to Get Organized?</h2>
+        <p>Join thousands of users who are already managing their tasks efficiently.</p>
+        {% if 'user' in session %}
+            <a href="{{ url_for('tasks.view_tasks') }}" class="btn btn-large">Go to Your Tasks</a>
+        {% else %}
+            <a href="{{ url_for('auth.login') }}" class="btn btn-large">Start Now - It's Free</a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Hero Section */
+    .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 80vh;
+        padding: 60px 20px;
+        text-align: center;
+        gap: 50px;
+    }
+
+    @media (min-width: 992px) {
+        .hero {
+            flex-direction: row;
+            text-align: left;
+            gap: 80px;
+        }
+    }
+
+    .hero-content {
+        flex: 1;
+        max-width: 600px;
+    }
+
+    .hero h1 {
+        font-size: 2.8rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        color: var(--dark);
+        line-height: 1.2;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        color: var(--gray);
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    @media (min-width: 992px) {
+        .hero-buttons {
+            justify-content: flex-start;
+        }
+    }
+
+    .hero-image {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .hero-illustration {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .task-card-illustration {
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        overflow: hidden;
+        transform: rotate(-2deg);
+        transition: transform 0.3s ease;
+    }
+
+    .task-card-illustration:hover {
+        transform: rotate(0deg) scale(1.02);
+    }
+
+    .illustration-header {
+        background: var(--gray-light);
+        padding: 12px 20px;
+        display: flex;
+        gap: 8px;
+    }
+
+    .illustration-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+
+    .illustration-dot.red { background: #ff5f57; }
+    .illustration-dot.yellow { background: #ffbd2e; }
+    .illustration-dot.green { background: #28ca42; }
+
+    .illustration-content {
+        padding: 25px;
+    }
+
+    .illustration-task {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--gray-light);
+    }
+
+    .illustration-task:last-child {
+        border-bottom: none;
+    }
+
+    .task-check {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 2px solid var(--gray-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .illustration-task.done .task-check {
+        background: #2ecc71;
+        border-color: #2ecc71;
+        color: white;
+    }
+
+    .illustration-task.working .task-check {
+        background: var(--info);
+        border-color: var(--info);
+    }
+
+    .illustration-task.pending .task-check {
+        background: var(--warning);
+        border-color: var(--warning);
+    }
+
+    /* Features Section */
+    .features {
+        padding: 80px 20px;
+        background: #fafbff;
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 2.2rem;
+        margin-bottom: 50px;
+        color: var(--dark);
+        font-weight: 700;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .feature-card {
+        background: white;
+        padding: 30px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+
+    .feature-icon svg {
+        width: 36px;
+        height: 36px;
+    }
+
+    .feature-card h3 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        color: var(--dark);
+    }
+
+    .feature-card p {
+        color: var(--gray);
+        line-height: 1.6;
+    }
+
+    /* How It Works */
+    .how-it-works {
+        padding: 80px 20px;
+        background: white;
+    }
+
+    .steps-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+        .steps-container {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        
+        .step-arrow {
+            display: block;
+            font-size: 2rem;
+            color: var(--primary);
+            opacity: 0.5;
+        }
+    }
+
+    .step-arrow {
+        display: none;
+    }
+
+    .step {
+        text-align: center;
+        flex: 1;
+        padding: 30px;
+        position: relative;
+    }
+
+    .step-number {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin: 0 auto 20px;
+        box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
+    }
+
+    .step h3 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        color: var(--dark);
+    }
+
+    .step p {
+        color: var(--gray);
+        line-height: 1.6;
+    }
+
+    /* CTA Section */
+    .cta {
+        padding: 80px 20px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        color: white;
+        text-align: center;
+    }
+
+    .cta-content {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .cta h2 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        font-weight: 700;
+    }
+
+    .cta p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        opacity: 0.9;
+    }
+
+    .btn-large {
+        padding: 18px 40px;
+        font-size: 1.2rem;
+        border-radius: var(--border-radius);
+        background: white;
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-large:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        color: var(--primary-dark);
+    }
+
+    .btn-primary {
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        color: white;
+    }
+
+    .btn-secondary {
+        background: transparent;
+        border: 2px solid var(--primary);
+        color: var(--primary);
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(to right, var(--primary-dark), #651fa3);
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background: var(--primary);
+        color: white;
+    }
+
+    /* Base button styles */
+    .btn {
+        padding: 14px 30px;
+        border-radius: var(--border-radius);
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .hero h1 {
+            font-size: 2.2rem;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+        }
+        
+        .hero-buttons {
+            flex-direction: column;
+        }
+        
+        .hero-buttons .btn {
+            width: 100%;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+        }
+        
+        .cta h2 {
+            font-size: 2rem;
+        }
+    }
+</style>
+{% endblock %}
