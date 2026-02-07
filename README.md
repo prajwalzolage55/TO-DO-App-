@@ -2,7 +2,6 @@
 
 A modern, responsive web-based task management application built with Flask that helps you organize, track, and manage your daily tasks efficiently.
 
-![App Screenshot](https://via.placeholder.com/800x400/4361ee/ffffff?text=TO-DO+App+Screenshot)
 
 ## 🚀 Live Demo
 
